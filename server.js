@@ -64,10 +64,11 @@
 // {"title": "The Field", "year": 1990, "cloudinaryName": "thefield", "dies": true}
 // curl -H "Content-Type: application/json" -d "{'title': 'The Field', 'year': 1990, 'cloudinaryName': 'thefield', 'dies': true}" http://seanbeanapi.herokuapp.com/api/movies
 
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongodb = require("mongodb");
-const ObjectID = mongodb.ObjectID;
+import express from 'express';
+import bodyParser from 'body-parser';
+import mongodb from 'mongodb';
+
+const {ObjectID, MongoClient} = mongodb;
 
 const MOVIES_COLLECTION = "movies";
 
@@ -76,7 +77,7 @@ app.use(bodyParser.json());
 
 let db;
 
-mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
+MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
     console.log(err);
     process.exit(1);
@@ -87,12 +88,12 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 
   const server = app.listen(process.env.PORT || 8080, function () {
     const port = server.address().port;
-    console.log("App now running on port", port);
+    console.log(`App now running on port: ${port}`);
   });
 });
 
 function handleError(res, reason, message, code) {
-  console.log("ERROR: " + reason);
+  console.log(`ERROR: + ${reason}`);
   res.status(code || 500).json({"error": message});
 }
 
