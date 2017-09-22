@@ -86,12 +86,12 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 
   const server = app.listen(process.env.PORT || 8080, function () {
     const port = server.address().port;
-    console.log(`App now running on port: ${port}`);
+    console.log('App now running on port: ' + port);
   });
 });
 
 function handleError(res, reason, message, code) {
-  console.log(`ERROR: + ${reason}`);
+  console.log('ERROR: '+ reason);
   res.status(code || 500).json({"error": message});
 }
 
