@@ -80,3 +80,15 @@ app.get('/api/movies', (req, res) => {
     }
   });
 });
+
+app.post("/api/movies", function(req, res) {
+  var newMovie = req.body;
+
+  db.collection(MOVIE_COLLECTION).insertOne(newMovie, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to add new movie to database.");
+    } else {
+      res.status(201).json(doc.ops[0]);
+    }
+  });
+});
