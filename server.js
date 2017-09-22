@@ -64,17 +64,17 @@
 // {"title": "The Field", "year": 1990, "cloudinaryName": "thefield", "dies": true}
 // curl -H "Content-Type: application/json" -d "{'title': 'The Field', 'year': 1990, 'cloudinaryName': 'thefield', 'dies': true}" http://seanbeanapi.herokuapp.com/api/movies
 
-var express = require("express");
-var bodyParser = require("body-parser");
-var mongodb = require("mongodb");
-var ObjectID = mongodb.ObjectID;
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongodb = require("mongodb");
+const ObjectID = mongodb.ObjectID;
 
-var MOVIES_COLLECTION = "movies";
+const MOVIES_COLLECTION = "movies";
 
-var app = express();
+const app = express();
 app.use(bodyParser.json());
 
-var db;
+let db;
 
 mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
@@ -85,8 +85,8 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   db = database;
   console.log("Database connection ready");
 
-  var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;
+  const server = app.listen(process.env.PORT || 8080, function () {
+    const port = server.address().port;
     console.log("App now running on port", port);
   });
 });
@@ -108,8 +108,7 @@ app.get("/api/movies", function(req, res) {
 });
 
 app.post("/api/movies", function(req, res) {
-  var newMovie = req.body;
-  newMovie.createDate = new Date();
+  const newMovie = req.body;
 
   db.collection(MOVIES_COLLECTION).insertOne(newMovie, function(err, doc) {
     if (err) {
@@ -121,4 +120,4 @@ app.post("/api/movies", function(req, res) {
 });
 
 
-// curl -H "Content-Type: application/json" -d '{"title":"The Field", "year": 1990, "cloudinaryName": "thefield", "dies": true}' http://seanbeanapi.herokuapp.com/api/contacts
+// curl -H "Content-Type: application/json" -d '{"title":"The Field", "year": 1990, "cloudinaryName": "thefield", "dies": true}' http://seanbeanapi.herokuapp.com/api/movies
