@@ -68,8 +68,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongodb from 'mongodb';
 
-const {ObjectID, MongoClient} = mongodb;
-
 const MOVIES_COLLECTION = "movies";
 
 const app = express();
@@ -77,7 +75,7 @@ app.use(bodyParser.json());
 
 let db;
 
-MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
+mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
     console.log(err);
     process.exit(1);
