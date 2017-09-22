@@ -52,17 +52,18 @@ cloudinary.config({
 app.use(bodyParser.json());
 
 let db;
-
-MongoClient.connect(process.env.MONGODB_URI, (err, database) => {
+MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
-    console.error(err);
+    console.log(err);
     process.exit(1);
   }
+  
   db = database;
-  console.log('Database ready!');
-  const server = app.listen(process.env.PORT || 3000, () => {
-    const {port} = server.address();
-    console.log(`Server running on port ${port}!`)
+  console.log("Database connection ready");
+
+  const server = app.listen(process.env.PORT || 8080, function () {
+    const port = server.address().port;
+    console.log("App now running on port", port);
   });
 });
 
@@ -92,3 +93,7 @@ app.post("/api/movies", function(req, res) {
     }
   });
 });
+
+
+{"title": "The Field", "year": 1990, "cloudinaryName": "thefield", "dies": true}
+curl -H "Content-Type: application/json" -d "{'title': 'The Field', 'year': 1990, 'cloudinaryName': 'thefield', 'dies': true}" http://seanbeanapi.herokuapp.com/api/movies
