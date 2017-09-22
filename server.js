@@ -91,7 +91,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
 });
 
 function handleError(res, reason, message, code) {
-  console.log('ERROR: '+ reason);
+  console.log('ERROR: ' + reason);
   res.status(code || 500).json({"error": message});
 }
 
@@ -117,6 +117,3 @@ app.post("/api/movies", function(req, res) {
     }
   });
 });
-
-
-// curl -H "Content-Type: application/json" -d '{"title":"The Field", "year": 1990, "cloudinaryName": "thefield", "dies": true}' http://seanbeanapi.herokuapp.com/api/movies
