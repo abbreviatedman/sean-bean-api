@@ -1,14 +1,14 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var mongodb = require("mongodb");
-var ObjectID = mongodb.ObjectID;
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongodb = require("mongodb");
+const ObjectID = mongodb.ObjectID;
 
-var MOVIES_COLLECTION = "movies";
+const MOVIES_COLLECTION = "movies";
 
-var app = express();
+const app = express();
 app.use(bodyParser.json());
 
-var db;
+let db;
 
 mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
@@ -21,8 +21,8 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   console.log("Database connection ready");
 
   // Initialize the app.
-  var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;
+  const server = app.listen(process.env.PORT || 8080, function () {
+    const port = server.address().port;
     console.log("App now running on port", port);
   });
 });
@@ -45,22 +45,23 @@ app.get("/api/movies", function(req, res) {
     if (err) {
       handleError(res, err.message, "Failed to get movies.");
     } else {
-      res.status(200).json(docs);
+      transformedDocs = docs.map(addCloudinaryUrl)
+      res.status(200).json(transformedDocs);
     }
   });
 });
 
-app.post("/api/movies", function(req, res) {
-  var newMovie = req.body;
+// app.post("/api/movies", function(req, res) {
+//   var newMovie = req.body;
 
-  db.collection(MOVIES_COLLECTION).insertOne(newMovie, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to create new movie.");
-    } else {
-      res.status(201).json(doc.ops[0]);
-    }
-  });
-});
+//   db.collection(MOVIES_COLLECTION).insertOne(newMovie, function(err, doc) {
+//     if (err) {
+//       handleError(res, err.message, "Failed to create new movie.");
+//     } else {
+//       res.status(201).json(doc.ops[0]);
+//     }
+//   });
+// });
 
 
 
