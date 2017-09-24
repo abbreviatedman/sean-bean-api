@@ -6,11 +6,11 @@ const ObjectID = mongodb.ObjectID;
 
 const MOVIES_COLLECTION = "movies";
 
-cloudinary.config({ 
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-  api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
+// cloudinary.config({ 
+//   cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+//   api_key: process.env.CLOUDINARY_API_KEY, 
+//   api_secret: process.env.CLOUDINARY_API_SECRET
+// });
 
 const app = express();
 app.use(bodyParser.json());
@@ -57,8 +57,8 @@ app.get("/api/movies", function(req, res) {
     if (err) {
       handleError(res, err.message, "Failed to get movies.");
     } else {
-      transformedDocs = docs.map(addCloudinaryUrl)
-      res.status(200).json(transformedDocs);
+      // transformedDocs = docs.map(addCloudinaryUrl)
+      res.status(200).json(docs);
     }
   });
 });
