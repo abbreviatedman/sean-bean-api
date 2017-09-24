@@ -1,14 +1,14 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongodb = require("mongodb");
-const ObjectID = mongodb.ObjectID;
+var express = require("express");
+var bodyParser = require("body-parser");
+var mongodb = require("mongodb");
+var ObjectID = mongodb.ObjectID;
 
-const MOVIES_COLLECTION = "movies";
+var MOVIES_COLLECTION = "movies";
 
-const app = express();
+var app = express();
 app.use(bodyParser.json());
 
-let db;
+var db;
 
 mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
@@ -21,8 +21,8 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   console.log("Database connection ready");
 
   // Initialize the app.
-  const server = app.listen(process.env.PORT || 8080, function () {
-    const port = server.address().port;
+  var server = app.listen(process.env.PORT || 8080, function () {
+    var port = server.address().port;
     console.log("App now running on port", port);
   });
 });
