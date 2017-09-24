@@ -1,9 +1,16 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import mongodb from 'mongodb';
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongodb = require("mongodb");
+const cloudinary = require('cloudinary');
 const ObjectID = mongodb.ObjectID;
 
 const MOVIES_COLLECTION = "movies";
+
+cloudinary.config({ 
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const app = express();
 app.use(bodyParser.json());
@@ -35,6 +42,11 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
+function addCloudinaryUrl(doc) {
+  const url = cloudinary.url(doc.cloudinaryName);
+  doc.url = url;
+}
+
 /*  "/api/movies"
  *    GET: finds all movies
  *    POST: creates a new contact
@@ -45,8 +57,8 @@ app.get("/api/movies", function(req, res) {
     if (err) {
       handleError(res, err.message, "Failed to get movies.");
     } else {
-      // transformedDocs = docs.map(addCloudinaryUrl)
-      res.status(200).json(docs);
+      transformedDocs = docs.map(addCloudinaryUrl)
+      res.status(200).json(transformedDocs);
     }
   });
 });
