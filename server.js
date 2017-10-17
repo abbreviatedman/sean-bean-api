@@ -45,12 +45,18 @@ function addCloudinaryUrl(doc) {
   doc.url = url;
 }
 
+function addCloudinaryUrl(doc) {
+  const html = cloudinary.video(doc.cloudinaryName);
+  doc.html = html;
+}
+
 app.get("/api/movies", function(req, res) {
   db.collection(MOVIES_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get movies.");
     } else {
       docs.forEach(addCloudinaryUrl);
+      docs.forEach(addCloudinaryHtml);
       res.status(200).json(docs);
     }
   });
