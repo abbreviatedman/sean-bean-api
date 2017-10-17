@@ -45,7 +45,7 @@ function addCloudinaryUrl(doc) {
   doc.url = url;
 }
 
-function addCloudinaryUrl(doc) {
+function addCloudinaryHtml(doc) {
   const html = cloudinary.video(doc.cloudinaryName);
   doc.html = html;
 }
