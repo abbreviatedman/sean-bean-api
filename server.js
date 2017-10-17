@@ -40,9 +40,9 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
-function addCloudinaryHtml(doc) {
-  const html = cloudinary.video(doc.cloudinaryName);
-  doc.html = html;
+function addCloudinaryUrl(doc) {
+  const url = 'http://res.cloudinary.com/abbreviatedman/video/upload/' + doc.cloudinaryName;
+  doc.url = url;
 }
 
 app.get("/api/movies", function(req, res) {
