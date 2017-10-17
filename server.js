@@ -40,11 +40,6 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
-function addCloudinaryUrl(doc) {
-  const url = 'http://res.cloudinary.com/abbreviatedman/video/upload/' + doc.cloudinaryName;
-  doc.url = url;
-}
-
 function addCloudinaryHtml(doc) {
   const html = cloudinary.video(doc.cloudinaryName);
   doc.html = html;
@@ -56,7 +51,6 @@ app.get("/api/movies", function(req, res) {
       handleError(res, err.message, "Failed to get movies.");
     } else {
       docs.forEach(addCloudinaryUrl);
-      docs.forEach(addCloudinaryHtml);
       res.status(200).json(docs);
     }
   });
