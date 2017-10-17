@@ -41,7 +41,7 @@ function handleError(res, reason, message, code) {
 }
 
 function addCloudinaryUrl(doc) {
-  const url = cloudinary.video(doc.cloudinaryName);
+  const url = cloudinary.url(doc.cloudinaryName);
   doc.url = url;
 }
 
