@@ -2,19 +2,19 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongodb = require("mongodb");
 const ObjectID = mongodb.ObjectID;
-const cloudinary = require('cloudinary');
+// const cloudinary = require('cloudinary');
 require('dotenv').config()
 
-// const cloudinaryUtilities = require('./utilities/cloudinary');
+const cloudinaryUtilities = require('./utilities/cloudinary');
 
 const MOVIES_COLLECTION = "movies";
-const videoOptions = {resource_type: 'video'};
+// const videoOptions = {resource_type: 'video'};
 
-cloudinary.config({ 
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-  api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
+// cloudinary.config({ 
+//   cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+//   api_key: process.env.CLOUDINARY_API_KEY, 
+//   api_secret: process.env.CLOUDINARY_API_SECRET
+// });
 
 const app = express();
 app.use(bodyParser.json());
@@ -43,17 +43,17 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
-function addCloudinaryUrl(doc) {
-  const url = cloudinary.url(doc.cloudinaryName, videoOptions);
-  doc.url = url;
-}
+// function addCloudinaryUrl(doc) {
+//   const url = cloudinary.url(doc.cloudinaryName, videoOptions);
+//   doc.url = url;
+// }
 
 app.get("/api/movies", function(req, res) {
   db.collection(MOVIES_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get movies.");
     } else {
-      docs.forEach(addCloudinaryUrl);
+      docs.forEach(cloudinaryUtilities.addCloudinaryUrl);
       res.status(200).json(docs);
     }
   });
