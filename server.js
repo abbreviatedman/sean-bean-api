@@ -5,7 +5,7 @@ const ObjectID = mongodb.ObjectID;
 const cloudinary = require('cloudinary');
 require('dotenv').config()
 
-const {addCloudinaryUrl} = require('./utilities/cloudinary');
+const cloudinaryUtilities = require('./utilities/cloudinary');
 
 const MOVIES_COLLECTION = "movies";
 
@@ -47,7 +47,7 @@ app.get("/api/movies", function(req, res) {
     if (err) {
       handleError(res, err.message, "Failed to get movies.");
     } else {
-      docs.forEach(addCloudinaryUrl);
+      docs.forEach(cloudinaryUtilities.addCloudinaryUrl);
       res.status(200).json(docs);
     }
   });
