@@ -5,7 +5,7 @@ const ObjectID = mongodb.ObjectID;
 const cloudinary = require('cloudinary');
 require('dotenv').config()
 
-import {addCloudinaryUrl} from './utilities/cloudinary';
+const {addCloudinaryUrl} = require('./utilities/cloudinary');
 
 const MOVIES_COLLECTION = "movies";
 
