@@ -5,9 +5,10 @@ const ObjectID = mongodb.ObjectID;
 const cloudinary = require('cloudinary');
 require('dotenv').config()
 
-const cloudinaryUtilities = require('./utilities/cloudinary');
+// const cloudinaryUtilities = require('./utilities/cloudinary');
 
 const MOVIES_COLLECTION = "movies";
+const videoOptions = {resource_type: 'video'};
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
@@ -42,12 +43,17 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
+function addCloudinaryUrl(doc) {
+  const url = cloudinary.url(doc.cloudinaryName, videoOptions);
+  doc.url = url;
+}
+
 app.get("/api/movies", function(req, res) {
   db.collection(MOVIES_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get movies.");
     } else {
-      docs.forEach(cloudinaryUtilities.addCloudinaryUrl);
+      docs.forEach(addCloudinaryUrl);
       res.status(200).json(docs);
     }
   });
