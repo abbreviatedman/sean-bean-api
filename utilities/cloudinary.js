@@ -13,4 +13,4 @@ const addCloudinaryUrl = function(doc) {
   doc.url = url;
 }
 
-module.exports = {addCloudinaryUrl: addCloudinaryUrl};
+module.exports = {addCloudinaryUrl};
