@@ -5,7 +5,10 @@ const ObjectID = mongodb.ObjectID;
 const cloudinary = require('cloudinary');
 require('dotenv').config()
 
+import {addCloudinaryUrl} from './utilities/cloudinary';
+
 const MOVIES_COLLECTION = "movies";
+const videoOptions = {resource_type: 'video'};
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
@@ -38,11 +41,6 @@ mongodb.MongoClient.connect(mongoDbUri, function (err, database) {
 function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
   res.status(code || 500).json({"error": message});
-}
-
-function addCloudinaryUrl(doc) {
-  const url = 'http://res.cloudinary.com/abbreviatedman/video/upload/' + doc.cloudinaryName;
-  doc.url = url;
 }
 
 app.get("/api/movies", function(req, res) {
