@@ -8,7 +8,6 @@ require('dotenv').config()
 import {addCloudinaryUrl} from './utilities/cloudinary';
 
 const MOVIES_COLLECTION = "movies";
-const videoOptions = {resource_type: 'video'};
 
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
