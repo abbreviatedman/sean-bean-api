@@ -41,7 +41,7 @@ app.get("/api/movies", function(req, res) {
       handleError(res, err.message, "Failed to get movies.");
     } else {
       const docsWithUrls = docs.map(addCloudinaryUrl);
-      res.status(200).json(docs);
+      res.status(200).json(docsWithUrls);
     }
   });
 });
