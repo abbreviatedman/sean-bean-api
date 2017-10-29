@@ -40,7 +40,7 @@ app.get("/api/movies", function(req, res) {
     if (err) {
       handleError(res, err.message, "Failed to get movies.");
     } else {
-      docs.forEach(addCloudinaryUrl);
+      const docsWithUrls = docs.map(addCloudinaryUrl);
       res.status(200).json(docs);
     }
   });
