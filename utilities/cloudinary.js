@@ -10,8 +10,8 @@ cloudinary.config({
 
 const addCloudinaryUrl = function(doc) {
   const url = cloudinary.url(doc.cloudinaryName, videoOptions);
-  const urlDoc = {...doc, url}
+  const urlDoc = Object.assign({}, doc, {url});
   return urlDoc;
-}
+};
 
 module.exports = {addCloudinaryUrl};
