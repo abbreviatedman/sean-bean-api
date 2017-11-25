@@ -1,7 +1,7 @@
 const cloudinary = require('cloudinary');
 
 const videoOptions = {resource_type: 'video'};
-const posterTransformOptions = {height: 200, crop: 'scale'};
+const posterTransformOptions = {width: 50, crop: 'scale'};
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
