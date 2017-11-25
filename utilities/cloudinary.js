@@ -14,4 +14,4 @@ const addVideoUrl = function(doc) {
   return urlDoc;
 };
 
-module.exports = {addVideoUrl, addPosterUrl};
+module.exports = {addVideoUrl};
