@@ -2,9 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongodb = require('mongodb');
 const ObjectID = mongodb.ObjectID;
-require('dotenv').config()
+require('dotenv').config();
 
-const {addVideoUrl, addPosterUrl} = require('./utilities/cloudinary');
+const {addVideoUrl} = require('./utilities/cloudinary');
 
 const MOVIES_COLLECTION = 'movies';
 
@@ -32,7 +32,7 @@ mongodb.MongoClient.connect(mongoDbUri, function (err, database) {
 
 function handleError(res, reason, message, code) {
   console.log('ERROR: ' + reason);
-  res.status(code || 500).json({'error': message});
+  res.status(code || 500).json({error: message});
 }
 
 app.get('/api/movies', function(req, res) {
@@ -41,8 +41,7 @@ app.get('/api/movies', function(req, res) {
       handleError(res, err.message, 'Failed to get movies.');
     } else {
       const docsWithUrls = docs.map(addVideoUrl);
-      const docsWithUrlsAndPosters = docsWithUrls.map(addPosterUrl);
-      res.status(200).json(docsWithUrlsAndPosters);
+      res.status(200).json(docsWithUrls);
     }
   });
 });

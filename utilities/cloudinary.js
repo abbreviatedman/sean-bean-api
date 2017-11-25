@@ -14,14 +14,4 @@ const addVideoUrl = function(doc) {
   return urlDoc;
 };
 
-const addPosterUrl = function(doc) {
-  // const posterUrl = doc.posterName
-  // ? cloudinary.url(doc.posterName)
-  // : 'o';
-  
-  // const urlDoc = Object.assign({}, doc, {posterUrl});
-  const urlDoc = Object.assign({}, doc, {posterUrl: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTY0NTkxNzQxOV5BMl5BanBnXkFtZTcwNzY5MzEzMQ@@._V1_.jpg'})
-  return urlDoc;
-};
-
 module.exports = {addVideoUrl, addPosterUrl};
