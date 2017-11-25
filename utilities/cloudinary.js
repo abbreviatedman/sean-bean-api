@@ -17,7 +17,7 @@ const addVideoUrl = function(doc) {
 
 const addPosterUrl = function(doc) {
   const posterUrl = doc.posterName
-  ? cloudinary.url(doc.posterName, posterTransformOptions)
+  ? cloudinary.url(doc.posterName)
   : 'o';
   
   const urlDoc = Object.assign({}, doc, {posterUrl});
