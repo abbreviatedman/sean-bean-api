@@ -16,11 +16,11 @@ const addVideoUrl = function(doc) {
 };
 
 const addPosterUrl = function(doc) {
-  const url = doc.posterName
-  ? cloudinary.image(doc.posterName, posterTransformOptions)
+  const posterUrl = doc.posterName
+  ? cloudinary.url(doc.posterName, posterTransformOptions)
   : '';
   
-  const urlDoc = Object.assign({}, doc, {url});
+  const urlDoc = Object.assign({}, doc, {posterUrl});
   return urlDoc;
 };
 
