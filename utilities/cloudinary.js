@@ -1,7 +1,7 @@
 const cloudinary = require('cloudinary');
 
 const videoOptions = {resource_type: 'video'};
-const posterTransformOptions = {height: 90, crop: 'scale'};
+const posterTransformOptions = {height: 50, crop: 'scale'};
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -18,7 +18,7 @@ const addVideoUrl = function(doc) {
 const addPosterUrl = function(doc) {
   const posterUrl = doc.posterName
   ? cloudinary.url(doc.posterName, posterTransformOptions)
-  : '';
+  : 'o';
   
   const urlDoc = Object.assign({}, doc, {posterUrl});
   return urlDoc;
