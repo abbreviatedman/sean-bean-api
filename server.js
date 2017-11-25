@@ -4,7 +4,7 @@ const mongodb = require('mongodb');
 const ObjectID = mongodb.ObjectID;
 require('dotenv').config()
 
-const {addCloudinaryUrl} = require('./utilities/cloudinary');
+const {addVideoUrl, addPosterUrl} = require('./utilities/cloudinary');
 
 const MOVIES_COLLECTION = 'movies';
 
@@ -40,8 +40,9 @@ app.get('/api/movies', function(req, res) {
     if (err) {
       handleError(res, err.message, 'Failed to get movies.');
     } else {
-      const docsWithUrls = docs.map(addCloudinaryUrl);
-      res.status(200).json(docsWithUrls);
+      const docsWithUrls = docs.map(addVideoUrl);
+      const docsWithUrlsAndPosters = docsWithUrls.map(addPosterUrl);
+      res.status(200).json(docsWithUrlsAndPosters);
     }
   });
 });

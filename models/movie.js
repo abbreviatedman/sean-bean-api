@@ -11,7 +11,7 @@ var movieSchema = new Schema({
     type: String,
     unique: true
   },
-  posterUri:  {
+  posterName:  {
     type: String,
     unique: true
   }
