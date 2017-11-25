@@ -10,6 +10,10 @@ var movieSchema = new Schema({
   cloudinaryName: {
     type: String,
     unique: true
+  },
+  posterUri:  {
+    type: String,
+    unique: true
   }
 });
 

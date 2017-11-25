@@ -1,12 +1,12 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongodb = require("mongodb");
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongodb = require('mongodb');
 const ObjectID = mongodb.ObjectID;
 require('dotenv').config()
 
 const {addCloudinaryUrl} = require('./utilities/cloudinary');
 
-const MOVIES_COLLECTION = "movies";
+const MOVIES_COLLECTION = 'movies';
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,23 +22,23 @@ mongodb.MongoClient.connect(mongoDbUri, function (err, database) {
   }
 
   db = database;
-  console.log("Database connection ready");
+  console.log('Database connection ready');
 
   const server = app.listen(process.env.PORT || 8080, function () {
     const port = server.address().port;
-    console.log("App now running on port", port);
+    console.log('App now running on port', port);
   });
 });
 
 function handleError(res, reason, message, code) {
-  console.log("ERROR: " + reason);
-  res.status(code || 500).json({"error": message});
+  console.log('ERROR: ' + reason);
+  res.status(code || 500).json({'error': message});
 }
 
-app.get("/api/movies", function(req, res) {
+app.get('/api/movies', function(req, res) {
   db.collection(MOVIES_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
-      handleError(res, err.message, "Failed to get movies.");
+      handleError(res, err.message, 'Failed to get movies.');
     } else {
       const docsWithUrls = docs.map(addCloudinaryUrl);
       res.status(200).json(docsWithUrls);
